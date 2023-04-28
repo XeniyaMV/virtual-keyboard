@@ -1,0 +1,35 @@
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
+.title {
+  text-align: center;
+  font-size: 1em;
+  letter-spacing: 0.01em;
+  margin-top: 20px;
+}
+
+.content {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content__text {
+  width: 400px;
+  height: 200px;
+  border-radius: 5px;
+  border: 1px solid #b1aeae;
+}
+
+.keyboard {
+  margin-top: 10px;
+  width: 500px;
+  background-color: #aff977;
+  border-radius: 1px;
+}
+
+/*# sourceMappingURL=style.css.map */
