@@ -1,6 +1,8 @@
 * {
   padding: 0px;
   margin: 0px;
+  box-sizing: border-box;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .title {
@@ -22,14 +24,86 @@
   width: 400px;
   height: 200px;
   border-radius: 5px;
-  border: 1px solid #b1aeae;
+  border: 1px solid #4f524d;
 }
 
 .keyboard {
   margin-top: 10px;
-  width: 500px;
-  background-color: #aff977;
-  border-radius: 1px;
+  padding: 10px;
+  width: 650px;
+  background: radial-gradient(circle at center, #c0fabb, #7dfe72);
+  border-radius: 15px;
+  border: 5px solid #3b9c33;
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+
+.keyboard__row {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+}
+
+.keyboard__key-additional-text {
+  display: none;
+}
+
+.keyboard__key {
+  min-width: 35px;
+  height: 35px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fffeef;
+  box-shadow: 2px 3px #6c6b6b;
+  color: #4f524d;
+  transition: background-color 0.5s, box-shadow 0.1s;
+  border: 1px solid #4f524d;
+  border-radius: 40%;
+}
+.keyboard__key:active {
+  box-shadow: 0px 0px;
+  opacity: 0.8;
+  background-color: #f8fd8e;
+}
+.keyboard__key:hover {
+  background-color: #f8fd8e;
+}
+
+.keyboard__key_special {
+  background-color: #eec9ff;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.keyboard__key_special_space {
+  min-width: 40%;
+}
+
+.keyboard__key_special_shift {
+  min-width: 95px;
+}
+
+.keyboard__key_special_alt {
+  width: 35px;
+}
+
+.keyboard__key_special_ctrl {
+  width: 45px;
+}
+
+.keyboard__key_special_caps {
+  min-width: 95px;
+}
+
+.keyboard__key_special_win {
+  width: 35px;
+}
+
+.keyboard__key_special_enter {
+  min-width: 95px;
 }
 
 /*# sourceMappingURL=style.css.map */
