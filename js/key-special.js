@@ -1,13 +1,14 @@
 import { Key } from './key.js';
 
 class KeySpecial extends Key {
-  constructor(keyName, width, hiddenContent) {
-    super(keyName, width);
+  constructor(keyName, hiddenContent) {
+    super(keyName);
     this.hiddenContent = hiddenContent;
+    this.keyDOM = this._buildHtml();
   }
 
-  buildHtml() {
-    const key = super.buildHtml();
+  _buildHtml() {
+    const key = super._buildHtml();
     if (this.hiddenContent === '') {
       key.classList.add('keyboard__key_special');
     }

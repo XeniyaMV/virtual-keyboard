@@ -21,8 +21,6 @@
 }
 
 .content__text {
-  width: 400px;
-  height: 200px;
   border-radius: 5px;
   border: 1px solid #4f524d;
 }
@@ -69,6 +67,7 @@
   background-color: #f8fd8e;
 }
 .keyboard__key:hover {
+  cursor: pointer;
   background-color: #f8fd8e;
 }
 
@@ -104,6 +103,12 @@
 
 .keyboard__key_special_enter {
   min-width: 95px;
+}
+
+.keyboard__key_active {
+  box-shadow: 0px 0px;
+  opacity: 0.8;
+  background-color: #f8fd8e;
 }
 
 /*# sourceMappingURL=style.css.map */

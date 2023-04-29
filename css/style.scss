@@ -28,8 +28,6 @@ $key-active-color: #f8fd8e;
   align-items: center;
 }
 .content__text {
-  width: 400px;
-  height: 200px;
   border-radius: 5px;
   border: 1px solid $border-color;
 }
@@ -76,6 +74,7 @@ $key-active-color: #f8fd8e;
     background-color: $key-active-color;
   }
   &:hover {
+    cursor: pointer;
     background-color: $key-active-color;
   }
 }
@@ -112,3 +111,8 @@ $key-active-color: #f8fd8e;
 // .keyboard__key_special_tab {
 
 // }
+.keyboard__key_active {
+  box-shadow: 0px 0px;
+  opacity: 0.8;
+  background-color: $key-active-color;
+}
