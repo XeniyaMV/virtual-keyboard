@@ -1,12 +1,13 @@
 class Key {
-  constructor(keyName) {
+  constructor(keyName, keyClass) {
     this.keyName = keyName;
-    this.keyDOM = this._buildHtml();
+    this.keyClass = keyClass;
+    this.keyDOM = this.buildHtml();
   }
 
-  _buildHtml() {
+  buildHtml() {
     const key = document.createElement('li');
-    key.className = 'keyboard__key';
+    key.className = `keyboard__key ${this.keyClass}`;
     key.innerHTML = `<span class="keyboard__key-main-text">${this.keyName}</span>`;
     return key;
   }

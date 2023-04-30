@@ -16,52 +16,22 @@ content.append(keyboard.buildKeyboardHtml());
 body.innerHTML = '<h1 class = "title"> RSS Virtual Keyboard </h1>';
 body.append(content);
 
+body.addEventListener('click', (event) => {
+  event.preventDefault();
+  textField.focus();
+});
 
-textField.addEventListener('keydown', function(event) {
-  console.log(event.key);
-  let key = event.key;
-
-  if (event.code === 'Space') {
-    key = '';
-  }
-  switch (event.key) {
-    case 'Delete':
-      key = 'Del';
-      break;
-    case 'Control':
-      key = 'Ctrl';
-      break;
-    case 'Meta':
-      key = 'Win';
-      break;
-  }
+textField.addEventListener('keydown', (event) => {
   for (let i = 0; i < keyboard.keys.length; i += 1) {
-    if (key === keyboard.keys[i].keyName) {
-      console.log(event.key, keyboard.keys[i].keyName);
+    if (event.code === keyboard.keys[i].keyClass) {
       keyboard.keys[i].keyDOM.classList.add('keyboard__key_active');
-      setTimeout(() => keyboard.keys[i].keyDOM.classList.remove('keyboard__key_active'), 500);
     }
   }
 });
-textField.addEventListener('keyup', function(event) {
-  let key = event.key;
-  if (event.code === 'Space') {
-    key = '';
-  }
-  switch (event.key) {
-    case 'Delete':
-      key = 'Del';
-      break;
-    case 'Control':
-      key = 'Ctrl';
-      break;
-    case 'Meta':
-      key = 'Win';
-      break;
-  }
+textField.addEventListener('keyup', (event) => {
   for (let i = 0; i < keyboard.keys.length; i += 1) {
-    if (key === keyboard.keys[i].keyName) {
+    if (event.code === keyboard.keys[i].keyClass) {
       keyboard.keys[i].keyDOM.classList.remove('keyboard__key_active');
     }
   }
-})
+});

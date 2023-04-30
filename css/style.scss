@@ -28,6 +28,8 @@ $key-active-color: #f8fd8e;
   align-items: center;
 }
 .content__text {
+  padding: 10px;
+  background-color: $key-primary-color;
   border-radius: 5px;
   border: 1px solid $border-color;
 }
@@ -84,28 +86,31 @@ $key-active-color: #f8fd8e;
   font-weight: 600;
 }
 
-.keyboard__key_special_space {
+.Space {
   min-width: 40%;
 }
-.keyboard__key_special_shift {
+.ShiftLeft,
+.ShiftRight {
   min-width: 95px;
 }
-.keyboard__key_special_alt {
+.AltLeft,
+.AltRight {
   width: 35px;
 }
-.keyboard__key_special_ctrl {
+.ControlLeft, 
+.ControlRight {
   width: 45px;
 }
-.keyboard__key_special_caps {
+.CapsLock {
   min-width: 95px;
 }
 // .keyboard__key_special_del {
 
 // }
-.keyboard__key_special_win {
+.MetaLeft {
   width: 35px;
 }
-.keyboard__key_special_enter {
+.Enter {
   min-width: 95px;
 }
 // .keyboard__key_special_tab {

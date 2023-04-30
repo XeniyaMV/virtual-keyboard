@@ -6,19 +6,19 @@ class Keyboard {
   constructor(layout) {
     this.layout = layout;
     this.keys = [];
-    this._buildKeyboard();
+    this.buildKeyboard();
   }
-  
-  _buildKeyboard() {
+
+  buildKeyboard() {
     let keyboardLayout = keyboardLayoutEng;
-    if (this.layout == 'rus') {
+    if (this.layout === 'rus') {
       keyboardLayout = keyboardLayoutRus;
     }
     for (let i = 0; i < keyboardLayout.length; i += 1) {
       const kInfo = keyboardLayout[i];
       const key = (kInfo.special)
-          ? new KeySpecial(kInfo.name, kInfo.hiddenName)
-          : new Key(kInfo.name);
+        ? new KeySpecial(kInfo.name, kInfo.class, kInfo.hiddenName)
+        : new Key(kInfo.name, kInfo.class);
       this.keys.push(key);
     }
   }
@@ -28,11 +28,11 @@ class Keyboard {
     let keyboardInd = 0;
     const keyboard = document.createElement('div');
     keyboard.className = 'keyboard';
-  
+
     for (let i = 0; i < rowLength.length; i += 1) {
       const row = document.createElement('ul');
       row.className = 'keyboard__row';
-  
+
       for (let j = 0; j < rowLength[i]; j += 1) {
         row.append(this.keys[keyboardInd].keyDOM);
         keyboardInd += 1;

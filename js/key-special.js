@@ -1,35 +1,16 @@
 import { Key } from './key.js';
 
 class KeySpecial extends Key {
-  constructor(keyName, hiddenContent) {
-    super(keyName);
+  constructor(keyName, keyClass, hiddenContent) {
+    super(keyName, keyClass);
     this.hiddenContent = hiddenContent;
-    this.keyDOM = this._buildHtml();
+    this.keyDOM = this.buildHtml();
   }
 
-  _buildHtml() {
-    const key = super._buildHtml();
+  buildHtml() {
+    const key = super.buildHtml();
     if (this.hiddenContent === '') {
       key.classList.add('keyboard__key_special');
-    }
-    if (this.keyName === '') {
-      key.classList.add('keyboard__key_special_space');
-    } else if (this.keyName === 'Alt') {
-      key.classList.add('keyboard__key_special_alt');
-    } else if (this.keyName === 'Ctrl') {
-      key.classList.add('keyboard__key_special_ctrl');
-    } else if (this.keyName === 'Tab') {
-      key.classList.add('keyboard__key_special_tab');
-    } else if (this.keyName === 'CapsLock') {
-      key.classList.add('keyboard__key_special_caps');
-    } else if (this.keyName === 'Enter') {
-      key.classList.add('keyboard__key_special_enter');
-    } else if (this.keyName === 'Shift') {
-      key.classList.add('keyboard__key_special_shift');
-    } else if (this.keyName === 'Del') {
-      key.classList.add('keyboard__key_special_del');
-    } else if (this.keyName === 'Win') {
-      key.classList.add('keyboard__key_special_win');
     }
 
     if (this.hiddenContent !== '') {
