@@ -3,20 +3,25 @@ import { Keyboard } from './keyboard.js';
 const body = document.querySelector('body');
 const content = document.createElement('div');
 const textField = document.createElement('textarea');
-const paragraph = document.createElement('p');
-const keyboard = new Keyboard('en');
+const paragraph1 = document.createElement('p');
+const paragraph2 = document.createElement('p');
+let keyboard = (localStorage.getItem('layout')) ? new Keyboard(localStorage.getItem('layout')) : new Keyboard('en');
+let keyboardDOM = keyboard.buildKeyboardHtml();
 
 content.className = 'content';
 textField.autofocus = true;
 textField.rows = 10;
 textField.cols = 50;
 textField.className = 'content__text';
-paragraph.className = 'content__p';
-paragraph.textContent = 'The keyboard was created in the Windows operating system';
+paragraph1.className = 'content__p';
+paragraph2.className = 'content__p';
+paragraph1.textContent = 'The keyboard was created in the Windows operating system';
+paragraph2.innerHTML = 'Use <b>ctrl + alt</b> to switch language';
 
 content.append(textField);
-content.append(keyboard.buildKeyboardHtml());
-content.append(paragraph);
+content.append(keyboardDOM);
+content.append(paragraph1);
+content.append(paragraph2);
 body.innerHTML = '<h1 class = "title"> RSS Virtual Keyboard </h1>';
 body.append(content);
 
@@ -51,9 +56,39 @@ textField.addEventListener('keydown', (event) => {
       break;
     case 'AltRight':
       textField.value += '';
+      if (event.ctrlKey) {
+        if (keyboard.layout === 'rus') {
+          localStorage.setItem('layout', 'en');
+          keyboard = new Keyboard('en');
+          keyboardDOM.remove();
+          keyboardDOM = keyboard.buildKeyboardHtml();
+          textField.after(keyboardDOM);
+        } else {
+          localStorage.setItem('layout', 'rus');
+          keyboard = new Keyboard('rus');
+          keyboardDOM.remove();
+          keyboardDOM = keyboard.buildKeyboardHtml();
+          textField.after(keyboardDOM);
+        }
+      }
       break;
     case 'AltLeft':
       textField.value += '';
+      if (event.ctrlKey) {
+        if (keyboard.layout === 'rus') {
+          localStorage.setItem('layout', 'en');
+          keyboard = new Keyboard('en');
+          keyboardDOM.remove();
+          keyboardDOM = keyboard.buildKeyboardHtml();
+          textField.after(keyboardDOM);
+        } else {
+          localStorage.setItem('layout', 'rus');
+          keyboard = new Keyboard('rus');
+          keyboardDOM.remove();
+          keyboardDOM = keyboard.buildKeyboardHtml();
+          textField.after(keyboardDOM);
+        }
+      }
       break;
     case 'ControlRight':
       textField.value += '';
