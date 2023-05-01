@@ -3,6 +3,7 @@ import { Keyboard } from './keyboard.js';
 const body = document.querySelector('body');
 const content = document.createElement('div');
 const textField = document.createElement('textarea');
+const paragraph = document.createElement('p');
 const keyboard = new Keyboard('en');
 
 content.className = 'content';
@@ -10,9 +11,12 @@ textField.autofocus = true;
 textField.rows = 10;
 textField.cols = 50;
 textField.className = 'content__text';
+paragraph.className = 'content__p';
+paragraph.textContent = 'The keyboard was created in the Windows operating system';
 
 content.append(textField);
 content.append(keyboard.buildKeyboardHtml());
+content.append(paragraph);
 body.innerHTML = '<h1 class = "title"> RSS Virtual Keyboard </h1>';
 body.append(content);
 
