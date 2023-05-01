@@ -6,6 +6,8 @@ class Keyboard {
   constructor(layout) {
     this.layout = layout;
     this.keys = [];
+    this.isCaps = false;
+    this.isShift = false;
     this.buildKeyboard();
   }
 

@@ -7,9 +7,12 @@
 
 .title {
   text-align: center;
-  font-size: 1em;
+  font-size: 2em;
   letter-spacing: 0.01em;
   margin-top: 20px;
+  font-family: "Calibri", "Times New Roman", Times, serif;
+  color: #4f524d;
+  opacity: 0.9;
 }
 
 .content {
@@ -21,10 +24,17 @@
 }
 
 .content__text {
-  padding: 10px;
+  padding: 15px;
+  font-size: 1.05em;
+  color: #303c54;
+  font-weight: 600;
   background-color: #fffeef;
-  border-radius: 5px;
-  border: 1px solid #4f524d;
+  border-radius: 15px;
+  border: 10px solid #eec9ff;
+  text-align: justify;
+}
+.content__text:focus {
+  border: 10px solid #eec9ff;
 }
 
 .keyboard {
