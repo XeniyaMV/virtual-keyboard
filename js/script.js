@@ -5,7 +5,7 @@ const content = document.createElement('div');
 const textField = document.createElement('textarea');
 const paragraph1 = document.createElement('p');
 const paragraph2 = document.createElement('p');
-let keyboard = (localStorage.getItem('layout')) ? new Keyboard(localStorage.getItem('layout')) : new Keyboard('en');
+let keyboard = (localStorage.getItem('layout')) ? new Keyboard(localStorage.getItem('layout'), textField) : new Keyboard('en', textField);
 let keyboardDOM = keyboard.buildKeyboardHtml();
 
 content.className = 'content';
@@ -32,6 +32,7 @@ document.querySelector('html').addEventListener('click', (event) => {
 textField.addEventListener('keydown', (event) => {
   event.preventDefault();
   const pointer = textField.selectionStart;
+  const text = textField.value;
   switch (event.code) {
     case 'Delete':
       textField.value = textField.value.slice(0, pointer) + textField.value.slice(pointer + 1);
@@ -39,7 +40,9 @@ textField.addEventListener('keydown', (event) => {
       textField.selectionEnd = textField.selectionStart;
       break;
     case 'Space':
-      textField.value += ' ';
+      textField.value = `${text.slice(0, pointer)} ${text.slice(pointer)}`;
+      textField.selectionStart = pointer + 1;
+      textField.selectionEnd = textField.selectionStart;
       break;
     case 'Backspace':
       if (pointer !== 0) {
@@ -49,23 +52,26 @@ textField.addEventListener('keydown', (event) => {
       }
       break;
     case 'Enter':
-      textField.value += '\n';
+      textField.value = `${text.slice(0, pointer)}\n${text.slice(pointer)}`;
+      textField.selectionStart = pointer + 1;
+      textField.selectionEnd = textField.selectionStart;
       break;
     case 'Tab':
-      textField.value += '    ';
+      textField.value = `${text.slice(0, pointer)}    ${text.slice(pointer)}`;
+      textField.selectionStart = pointer + 4;
+      textField.selectionEnd = textField.selectionStart;
       break;
     case 'AltRight':
-      textField.value += '';
       if (event.ctrlKey) {
         if (keyboard.layout === 'rus') {
           localStorage.setItem('layout', 'en');
-          keyboard = new Keyboard('en');
+          keyboard = new Keyboard('en', textField);
           keyboardDOM.remove();
           keyboardDOM = keyboard.buildKeyboardHtml();
           textField.after(keyboardDOM);
         } else {
           localStorage.setItem('layout', 'rus');
-          keyboard = new Keyboard('rus');
+          keyboard = new Keyboard('rus', textField);
           keyboardDOM.remove();
           keyboardDOM = keyboard.buildKeyboardHtml();
           textField.after(keyboardDOM);
@@ -73,17 +79,16 @@ textField.addEventListener('keydown', (event) => {
       }
       break;
     case 'AltLeft':
-      textField.value += '';
       if (event.ctrlKey) {
         if (keyboard.layout === 'rus') {
           localStorage.setItem('layout', 'en');
-          keyboard = new Keyboard('en');
+          keyboard = new Keyboard('en', textField);
           keyboardDOM.remove();
           keyboardDOM = keyboard.buildKeyboardHtml();
           textField.after(keyboardDOM);
         } else {
           localStorage.setItem('layout', 'rus');
-          keyboard = new Keyboard('rus');
+          keyboard = new Keyboard('rus', textField);
           keyboardDOM.remove();
           keyboardDOM = keyboard.buildKeyboardHtml();
           textField.after(keyboardDOM);
@@ -91,16 +96,12 @@ textField.addEventListener('keydown', (event) => {
       }
       break;
     case 'ControlRight':
-      textField.value += '';
       break;
     case 'ControlLeft':
-      textField.value += '';
       break;
     case 'MetaLeft':
-      textField.value += '';
       break;
     case 'ShiftRight':
-      textField.value += '';
       keyboard.isShift = !keyboard.isShift;
       keyboard.keys.forEach((item) => {
         const key = item.keyDOM;
@@ -119,7 +120,6 @@ textField.addEventListener('keydown', (event) => {
       });
       break;
     case 'ShiftLeft':
-      textField.value += '';
       keyboard.isShift = !keyboard.isShift;
       keyboard.keys.forEach((item) => {
         const key = item.keyDOM;
@@ -157,17 +157,23 @@ textField.addEventListener('keydown', (event) => {
           const key = keyboard.keys[i];
           if (keyboard.isShift) {
             if (key.hiddenContent !== undefined && key.hiddenContent !== '') {
-              textField.value += key.hiddenContent;
+              textField.value = text.slice(0, pointer) + key.hiddenContent + text.slice(pointer);
             } else if (keyboard.isCaps) {
-              textField.value += key.keyName;
+              textField.value = text.slice(0, pointer) + key.keyName + text.slice(pointer);
             } else {
-              textField.value += key.keyName.toUpperCase();
+              textField.value = text.slice(0, pointer)
+                + key.keyName.toUpperCase()
+                + text.slice(pointer);
             }
           } else if (keyboard.isCaps) {
-            textField.value += key.keyName.toUpperCase();
+            textField.value = text.slice(0, pointer)
+              + key.keyName.toUpperCase()
+              + text.slice(pointer);
           } else {
-            textField.value += key.keyName;
+            textField.value = text.slice(0, pointer) + key.keyName + text.slice(pointer);
           }
+          textField.selectionStart = pointer + 1;
+          textField.selectionEnd = textField.selectionStart;
         }
       }
   }
@@ -204,79 +210,4 @@ textField.addEventListener('keyup', (event) => {
       }
     });
   }
-});
-keyboard.keys.forEach((item) => {
-  item.keyDOM.addEventListener('mousedown', (event) => {
-    event.preventDefault();
-  });
-  item.keyDOM.addEventListener('click', (event) => {
-    event.preventDefault();
-    const pointer = textField.selectionStart;
-    switch (item.keyClass) {
-      case 'Delete':
-        textField.value = textField.value.slice(0, pointer) + textField.value.slice(pointer + 1);
-        textField.selectionStart = pointer;
-        textField.selectionEnd = textField.selectionStart;
-        break;
-      case 'Space':
-        textField.value += ' ';
-        break;
-      case 'Backspace':
-        if (pointer !== 0) {
-          textField.value = textField.value.slice(0, pointer - 1) + textField.value.slice(pointer);
-          textField.selectionStart = pointer - 1;
-          textField.selectionEnd = textField.selectionStart;
-        }
-        break;
-      case 'Enter':
-        textField.value += '\n';
-        break;
-      case 'Tab':
-        textField.value += '    ';
-        break;
-      case 'AltRight':
-        textField.value += '';
-        break;
-      case 'AltLeft':
-        textField.value += '';
-        break;
-      case 'ControlRight':
-        textField.value += '';
-        break;
-      case 'ControlLeft':
-        textField.value += '';
-        break;
-      case 'MetaLeft':
-        textField.value += '';
-        break;
-      case 'ShiftRight':
-        textField.value += '';
-        break;
-      case 'ShiftLeft':
-        textField.value += '';
-        break;
-      case 'CapsLock':
-        textField.value += '';
-        keyboard.isCaps = !keyboard.isCaps;
-        keyboard.keys.forEach((elem) => {
-          if (elem.hiddenContent === undefined) {
-            const key = elem.keyDOM;
-            const first = key.firstElementChild;
-            if (first.textContent === first.textContent.toUpperCase()) {
-              first.textContent = first.textContent.toLowerCase();
-            } else {
-              first.textContent = first.textContent.toUpperCase();
-            }
-          }
-        });
-        break;
-      default:
-        if (keyboard.isCaps) {
-          textField.value += item.keyName.toUpperCase();
-        } else {
-          textField.value += item.keyName;
-        }
-        break;
-    }
-  });
 });
